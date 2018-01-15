@@ -46,8 +46,8 @@ public class TaskFormActivity extends AppCompatActivity {
         String taskName = this.editTextTaskName.getText().toString();
         String user = this.editTextUser.getText().toString();
 
-        if (taskName.trim().equals("")) {
-            String message = "La tâche ne peut être vide";
+        if (taskName.trim().equals("") || user.trim().equals("")) {
+            String message = "La tâche et/ou l'utilisateur ne peuvent être vide";
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         } else {
             Task task = new Task(taskName);
