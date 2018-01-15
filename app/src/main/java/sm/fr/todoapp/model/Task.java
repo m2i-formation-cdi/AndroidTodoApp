@@ -8,6 +8,7 @@ public class Task {
     private String taskName;
     private Boolean done = false;
     private Long id;
+    private String user;
 
     public Task() {
     }
@@ -54,5 +55,14 @@ public class Task {
         } else {
             return 0;
         }
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public Task setUser(String user) {
+        this.user = user;
+        return this;
     }
 }

@@ -18,6 +18,7 @@ import sm.fr.todoapp.model.TaskDAO;
 public class TaskFormActivity extends AppCompatActivity {
 
     EditText editTextTaskName;
+    EditText editTextUser;
 
     /**
      * Création de l'activité
@@ -29,6 +30,7 @@ public class TaskFormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task_form);
 
         editTextTaskName = findViewById(R.id.editTextTask);
+        editTextUser = findViewById(R.id.editTextUser);
 
         ActionBar actionBar = getActionBar();
         if(actionBar != null){
@@ -42,12 +44,14 @@ public class TaskFormActivity extends AppCompatActivity {
      */
     public void onValidForm(View view) {
         String taskName = this.editTextTaskName.getText().toString();
+        String user = this.editTextUser.getText().toString();
 
         if (taskName.trim().equals("")) {
             String message = "La tâche ne peut être vide";
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         } else {
             Task task = new Task(taskName);
+            task.setUser(user);
             this.processForm(task);
         }
     }

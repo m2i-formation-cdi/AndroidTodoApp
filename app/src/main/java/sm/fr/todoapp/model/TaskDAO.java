@@ -31,7 +31,7 @@ public class TaskDAO implements DAOInterface<Task> {
     public Task findOneById(int id) throws SQLiteException{
         //Exécution de la requête
         String[] params = {String.valueOf(id)};
-        String sql = "SELECT id, task_name, done FROM tasks WHERE id=?";
+        String sql = "SELECT id, task_name, done, user FROM tasks WHERE id=?";
         Cursor cursor = this.db.getReadableDatabase().rawQuery(sql, params);
         //Instanciation d'un Task
         Task Task = new Task();
@@ -58,6 +58,7 @@ public class TaskDAO implements DAOInterface<Task> {
         Task.setId(cursor.getLong(0));
         Task.setTaskName(cursor.getString(1));
         Task.setDone(! cursor.getString(2).equals("0"));
+        Task.setUser(cursor.getString(3));
 
         return Task;
     }
@@ -72,7 +73,7 @@ public class TaskDAO implements DAOInterface<Task> {
         List<Task> TaskList = new ArrayList<>();
 
         //Exécution de la requête sql
-        String sql = "SELECT id, task_name, done FROM tasks";
+        String sql = "SELECT id, task_name, done, user FROM tasks";
         Cursor cursor = this.db.getReadableDatabase().rawQuery(sql, null);
         //Boucle sur le curseur
         while(cursor.moveToNext()){
@@ -97,7 +98,7 @@ public class TaskDAO implements DAOInterface<Task> {
         List<Task> TaskList = new ArrayList<>();
 
         //Exécution de la requête sql
-        String sql = "SELECT id, task_name, done FROM tasks WHERE done=?";
+        String sql = "SELECT id, task_name, done, user FROM tasks WHERE done=?";
         String[] params = {done?"1":"0"};
         Cursor cursor = this.db.getReadableDatabase().rawQuery(sql, params);
         //Boucle sur le curseur
@@ -155,6 +156,7 @@ public class TaskDAO implements DAOInterface<Task> {
         ContentValues values = new ContentValues();
         values.put("task_name", entity.getTaskName());
         values.put("done", entity.getDoneAsInteger());
+        values.put("user", entity.getUser());
 
         return values;
     }
